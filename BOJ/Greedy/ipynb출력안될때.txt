@@ -1,0 +1,4 @@
+"Sorry something went wrong. Reload?"라는 에러메세지가 뜰 경우 다음 홈페이지에 접속하여 보고자 하는 링크를 붙여넣으면 해당 파일이 출력됩니다.
+If the error message "Sorry something went wrong. Reload?" appears, access the following homepage and paste the link you want to see and the file will be displayed.
+
+https://nbviewer.jupyter.org/
