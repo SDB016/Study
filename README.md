@@ -25,4 +25,4 @@ study한 흔적을 남기기 위한 폴더입니다.
         
      [3] BFS & DFS
         
-     [4] Dynamic programing
+     [4] Dynamic Programing
