@@ -1,8 +1,15 @@
 package com.example.demo.domain;
 
+
+import javax.persistence.*;
+
+@Entity
 public class Member {
-    private String name;
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
 
     public String getName() {
         return name;
