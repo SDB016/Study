@@ -4,6 +4,7 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+    platform: h2
 
   jpa:
     hibernate:
@@ -12,7 +13,6 @@ spring:
       hibernate:
 #       show_sql: ture
         format_sql: true
-logging:
-  level:
-    org.hibernate.SQL: debug
+logging.level:
+  org.hibernate.SQL: debug
   # org.hibernate.type: trace
