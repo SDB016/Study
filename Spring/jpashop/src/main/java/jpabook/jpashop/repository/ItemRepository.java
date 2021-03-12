@@ -18,6 +18,7 @@ public class ItemRepository {
             em.persist(item); //등록된 적 없는 신규 item
         }else{
             em.merge(item); //이미 DB에 등록된 item
+            //Item mergeItem = em.merge(item); //mergeItem: 영속성 컨텍스트, item: 준영속성 컨텍스트
         }
     }
 
