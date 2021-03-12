@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +12,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //constructor 이용한 생성 막기
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -26,6 +29,9 @@ public class OrderItem {
 
     private int orderPrice; //주문 당시 가격
     private int count; //주문 수량
+
+
+    //protected OrderItem() {} //createOrderItem 이외 방법으로 객체 생성 막기 (new 이용 생성)
 
     //==생성 메서드==//
     //할인 등 이유로 가격이 바뀔 수 있기 때문에 가격, 갯수를 받음
