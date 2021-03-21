@@ -3,6 +3,9 @@ package bookjpa.shopjpa;
 import bookjpa.shopjpa.domain.Member;
 import bookjpa.shopjpa.domain.OrderItem;
 import bookjpa.shopjpa.domain.Orders;
+import bookjpa.shopjpa.domain.item.Book;
+import bookjpa.shopjpa.domain.item.Item;
+import bookjpa.shopjpa.domain.item.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,12 +23,12 @@ public class JpaMain {
 
         try {
 
-            Orders order = new Orders();
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("kim");
 
-            OrderItem orderItem = new OrderItem();
-            order.addOrderItem(orderItem);
+            em.persist(book);
 
-            em.persist(order);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

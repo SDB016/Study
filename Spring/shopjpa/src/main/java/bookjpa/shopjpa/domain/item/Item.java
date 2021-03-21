@@ -1,11 +1,18 @@
-package bookjpa.shopjpa.domain;
+package bookjpa.shopjpa.domain.item;
+
+import bookjpa.shopjpa.domain.BaseEntity;
+import bookjpa.shopjpa.domain.Category;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Item {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)  //한 테이블에 모두 넣기
+//@Inheritance(strategy = InheritanceType.JOINED) // 테이블 상속 구조
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) //각 테이블마다 name, price 등 중복해서 가짐
+@DiscriminatorColumn
+public abstract class Item extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ITEM_ID")

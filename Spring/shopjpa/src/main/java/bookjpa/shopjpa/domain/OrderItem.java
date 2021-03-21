@@ -1,9 +1,11 @@
 package bookjpa.shopjpa.domain;
 
+import bookjpa.shopjpa.domain.item.Item;
+
 import javax.persistence.*;
 
 @Entity
-public class OrderItem {
+public class OrderItem extends BaseEntity{
 
     @Id
     @GeneratedValue
