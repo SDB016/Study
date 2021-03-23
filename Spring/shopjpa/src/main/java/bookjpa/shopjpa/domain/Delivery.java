@@ -2,6 +2,8 @@ package bookjpa.shopjpa.domain;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 public class Delivery extends BaseEntity{
 
@@ -15,7 +17,7 @@ public class Delivery extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
-    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "delivery", fetch = LAZY)
     private Orders orders;
 
     public Long getId() {
