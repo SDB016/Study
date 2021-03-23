@@ -13,33 +13,27 @@ public class JpaMain {
         tx.begin();
 
         try {
-
-            Member member = new Member();
-            member.setUsername("member1");
-            member.setAge(10);
-            em.persist(member);
-
-            //방법 3
-            List<MemberDTO> resultList = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
-                    .getResultList();
-
-            for (MemberDTO memberDTO : resultList) {
-                System.out.println("memberDTO.getUsername()= " + memberDTO.getUsername() + ", memberDTO.getAge() =" + memberDTO.getAge());
+            for(int i = 0; i<100; i++){
+                Member member = new Member();
+                member.setUsername("member" + i);
+                member.setAge(i);
+                em.persist(member);
             }
 
-            /* 방법1 
-            List resultList = em.createQuery("select m.age, m.username from Member m").getResultList();
-            Object[] result = (Object[]) resultList.get(0);
-            System.out.println("result[0] = " + result[0]);
-            System.out.println("result[1] = " + result[1]);
-            */
-            
-            /*방법 2
-            List<Object[]> resultList = em.createQuery("select m.age, m.username from Member m", Object[].class).getResultList();
-            Object[] objects = resultList.get(0);
-            System.out.println("objects[0] = " + objects[0]);
-            System.out.println("objects[1] = " + objects[1]);
-            */
+            em.flush();
+            em.clear();
+
+            List<Member> resultList = em.createQuery("select m from Member m order by m.age desc", Member.class)
+                                            .setFirstResult(1)
+                                            .setMaxResults(10)
+                                            .getResultList();
+
+            System.out.println("resultList.size() = " + resultList.size());
+            for (Member member1 : resultList) {
+                System.out.println("member1 = " + member1);
+            }
+
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
