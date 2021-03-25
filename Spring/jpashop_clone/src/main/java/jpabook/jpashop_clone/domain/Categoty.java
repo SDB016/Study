@@ -28,4 +28,15 @@ public class Categoty {
 
     @OneToMany(mappedBy = "parent")
     private List<Categoty> child = new ArrayList<>();
+
+    //==연관관계 메서드==//
+    public void addChildCategory(Categoty child) {
+        this.getChild().add(child);
+        child.setParent(this);
+    }
+
+    public void addItemCategory(ItemCategory itemCategory) {
+        this.getItemCategoryList().add((itemCategory));
+        itemCategory.setCategoty(this);
+    }
 }

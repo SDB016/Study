@@ -25,4 +25,10 @@ public abstract class Item {
     @OneToMany(mappedBy = "item")
     private List<ItemCategory> itemCategoryList = new ArrayList<>();
 
+    //==연관관계 메서드==//
+    public void addItemCategory(ItemCategory itemCategory) {
+        this.getItemCategoryList().add(itemCategory);
+        itemCategory.setItem(this);
+    }
+
 }
