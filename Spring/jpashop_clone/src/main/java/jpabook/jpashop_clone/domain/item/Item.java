@@ -1,6 +1,7 @@
 package jpabook.jpashop_clone.domain.item;
 
 import jpabook.jpashop_clone.domain.ItemCategory;
+import jpabook.jpashop_clone.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +30,19 @@ public abstract class Item {
     public void addItemCategory(ItemCategory itemCategory) {
         this.getItemCategoryList().add(itemCategory);
         itemCategory.setItem(this);
+    }
+
+    //==비즈니스 로직==//
+    public void addStock(int quantity) {
+        this.stockQuantity += quantity;
+    }
+
+    public void removeStock(int stockQuantity) {
+        int restStock = this.stockQuantity - stockQuantity;
+        if (restStock < 0){
+            throw new NotEnoughStockException("재고가 0보다 적습니다.");
+        }
+        this.stockQuantity = restStock;
     }
 
 }
