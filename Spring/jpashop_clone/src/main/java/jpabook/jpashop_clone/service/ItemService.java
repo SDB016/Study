@@ -1,5 +1,6 @@
 package jpabook.jpashop_clone.service;
 
+import jpabook.jpashop_clone.domain.item.Book;
 import jpabook.jpashop_clone.domain.item.Item;
 import jpabook.jpashop_clone.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,10 @@ public class ItemService {
 
     public List<Item> findAll(){
         return itemRepository.findAll();
+    }
+
+    public List<Book> findAllBook(){
+        return itemRepository.findAllBook();
     }
 
 }

@@ -1,5 +1,6 @@
 package jpabook.jpashop_clone.repository;
 
+import jpabook.jpashop_clone.domain.item.Book;
 import jpabook.jpashop_clone.domain.item.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -28,6 +29,11 @@ public class ItemRepository {
 
     public List<Item> findAll(){
         return em.createQuery("select i from Item i", Item.class)
+                .getResultList();
+    }
+
+    public List<Book> findAllBook() {
+        return em.createQuery("select b from Book b", Book.class)
                 .getResultList();
     }
 
