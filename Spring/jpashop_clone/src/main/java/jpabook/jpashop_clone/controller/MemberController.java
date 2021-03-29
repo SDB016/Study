@@ -1,8 +1,9 @@
-package jpabook.jpashop_clone.web;
+package jpabook.jpashop_clone.controller;
 
 import jpabook.jpashop_clone.domain.Address;
 import jpabook.jpashop_clone.domain.Member;
 import jpabook.jpashop_clone.service.MemberService;
+import jpabook.jpashop_clone.web.MemberForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,5 +41,12 @@ public class MemberController {
         memberService.join(member);
 
         return "redirect:/";
+    }
+
+    @GetMapping(value = "/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findAll();
+        model.addAttribute("members", members);
+        return "members/memberList";
     }
 }
