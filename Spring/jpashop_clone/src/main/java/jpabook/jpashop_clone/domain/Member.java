@@ -22,4 +22,10 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+
+    public void change(String name, String city, String street, String zipcode) {
+        this.setName(name);
+        Address address = new Address(city, street, zipcode);
+        this.setAddress(address);
+    }
 }
