@@ -8,7 +8,6 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>#</th>
                 <th>이름</th>
                 <th>도시</th>
                 <th>주소</th>
@@ -17,7 +16,6 @@
             </thead>
             <tbody>
             <tr th:each="member : ${members}">
-                <td th:text="${member.id}"></td>
                 <td th:text="${member.name}"></td>
                 <td th:text="${member.address?.city}"></td>
                 <td th:text="${member.address?.street}"></td>
