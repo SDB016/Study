@@ -33,4 +33,11 @@ public class ItemService {
         return itemRepository.findAllBook();
     }
 
+    @Transactional
+    public void updateItem(Long itemId, String name, String author, int price, int stockQuantity, String isbn) {
+
+        Book item = (Book) itemRepository.findOne(itemId);
+
+        item.change(name, price, stockQuantity, author, isbn);
+    }
 }
