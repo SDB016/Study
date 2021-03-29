@@ -1,7 +1,6 @@
 package jpabook.jpashop_clone.controller;
 
 import jpabook.jpashop_clone.domain.item.Book;
-import jpabook.jpashop_clone.domain.item.Item;
 import jpabook.jpashop_clone.service.ItemService;
 import jpabook.jpashop_clone.web.BookForm;
 import lombok.RequiredArgsConstructor;
@@ -71,17 +70,9 @@ public class ItemController {
      */
 
     @PostMapping(value = "items/{itemId}/edit")
-    public String updateItem(@ModelAttribute("form") BookForm form) {
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) {
 
-        Book book = new Book();
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setIsbn(form.getIsbn());
-        book.setAuthor(form.getAuthor());
-
-        itemService.saveItem(book);
+        itemService.updateItem(itemId, form.getName(), form.getAuthor(), form.getPrice(), form.getStockQuantity(), form.getIsbn());
         return "redirect:/items";
     }
 }
