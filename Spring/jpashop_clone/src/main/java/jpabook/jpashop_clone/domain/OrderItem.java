@@ -1,5 +1,6 @@
 package jpabook.jpashop_clone.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jpabook.jpashop_clone.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class OrderItem {
     private Item item;
 
     @ManyToOne(fetch = LAZY)
+    @JsonIgnore
     @JoinColumn(name = "order_id")
     private Order order;
 
