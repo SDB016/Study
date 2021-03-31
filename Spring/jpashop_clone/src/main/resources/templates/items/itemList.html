@@ -8,7 +8,6 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>#</th>
                 <th>상품명</th>
                 <th>저자</th>
                 <th>가격</th>
@@ -18,7 +17,6 @@
             </thead>
             <tbody>
             <tr th:each="item : ${items}">
-                <td th:text="${item.id}"></td>
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.author}"></td>
                 <td th:text="${item.price}"></td>

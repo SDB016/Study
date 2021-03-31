@@ -44,8 +44,16 @@ public class MemberService {
     }
 
     @Transactional
+<<<<<<< HEAD
     public void update(Long id, String name) {
         Member member = memberRepository.findOne(id);
         member.setName(name);
+=======
+    public void updateMember(Long memberId, String name, String city, String street, String zipcode) {
+
+        Member findMember = memberRepository.findOne(memberId);
+
+        findMember.change(name, city, street, zipcode);
+>>>>>>> 8cfa53b7af178cf045c536dc0da5fcfb5feb30cb
     }
 }

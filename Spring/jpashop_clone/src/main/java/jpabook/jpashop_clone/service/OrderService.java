@@ -2,6 +2,7 @@ package jpabook.jpashop_clone.service;
 
 import jpabook.jpashop_clone.domain.*;
 import jpabook.jpashop_clone.domain.item.Item;
+import jpabook.jpashop_clone.exception.NotEnoughStockException;
 import jpabook.jpashop_clone.repository.ItemRepository;
 import jpabook.jpashop_clone.repository.MemberRepository;
 import jpabook.jpashop_clone.repository.OrderRepository;
@@ -32,12 +33,18 @@ public class OrderService {
         delivery.setAddress(member.getAddress());
         delivery.setStatus(DeliveryStatus.READY);
 
-        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
+        try {
+            OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
+            Order order = Order.createOrder(member, delivery, orderItem);
 
-        Order order = Order.createOrder(member, delivery, orderItem);
+            orderRepository.save(order);
+            return order.getId();
 
-        orderRepository.save(order);
-        return order.getId();
+        }catch (NotEnoughStockException e){
+            e.printStackTrace();
+            throw new NotEnoughStockException("재고가 0보다 적습니다.");
+        }
+
     }
 
     /**
