@@ -1,13 +1,19 @@
 package jpabook.jpashop_clone.api;
 
+import jpabook.jpashop_clone.domain.Address;
 import jpabook.jpashop_clone.domain.Order;
 import jpabook.jpashop_clone.domain.OrderSearch;
+import jpabook.jpashop_clone.domain.OrderStatus;
 import jpabook.jpashop_clone.repository.OrderRepository;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * xToOne (ManyToOne, OneToOne)
@@ -31,5 +37,42 @@ public class OrderSimpleApiController {
 
         }
         return all;
+    }
+
+    @GetMapping("/api/v2/simple-orders")
+    public Result ordersV2(){
+
+        // Order 2개
+        // 1 + 회원N + 배송 정보 N 문제 (V1과 쿼리 수 같음)
+        List<Order> orders = orderRepository.findAllByCriteria(new OrderSearch());
+        List<SimpleOrderDto> result = orders.stream()
+                .map(o -> new SimpleOrderDto(o))
+                .collect(Collectors.toList());
+        return new Result(result);
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class SimpleOrderDto{
+        private Long orderId;
+        private String name;
+        private LocalDateTime orderDate;
+        private OrderStatus orderStatus;
+        private Address address;
+
+        public SimpleOrderDto(Order order) {
+
+            orderId = order.getId();
+            name = order.getMember().getName(); //Lazy 초기화
+            orderDate = order.getOrderDate();
+            orderStatus = order.getStatus();
+            address = order.getDelivery().getAddress(); //Lazy 초기화
+        }
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T>{
+        private T data;
     }
 }
