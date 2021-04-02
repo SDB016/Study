@@ -23,7 +23,7 @@ public class OrderItem {
     private Item item;
 
     @ManyToOne(fetch = LAZY)
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "order_id")
     private Order order;
 

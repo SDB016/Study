@@ -5,6 +5,7 @@ import jpabook.jpashop_clone.domain.Order;
 import jpabook.jpashop_clone.domain.OrderSearch;
 import jpabook.jpashop_clone.domain.OrderStatus;
 import jpabook.jpashop_clone.repository.OrderRepository;
+import jpabook.jpashop_clone.repository.OrderSimpleQueryDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,27 @@ public class OrderSimpleApiController {
                 .collect(Collectors.toList());
         return new Result(result);
     }
+
+    @GetMapping("/api/v3/simple-orders")
+    public Result ordersV3(){
+
+        // 가장 추천하는 방법!!
+        // fetch join 이용
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        List<SimpleOrderDto> result = orders.stream()
+                .map(o -> new SimpleOrderDto(o))
+                .collect(Collectors.toList());
+        return new Result(result);
+    }
+
+    @GetMapping("/api/v4/simple-orders")
+    public Result ordersV4(){
+
+        // 원하는 필드만!
+        List<OrderSimpleQueryDto> result = orderRepository.findOrderDtos();
+        return new Result(result);
+    }
+
 
     @Data
     @AllArgsConstructor
