@@ -2,6 +2,7 @@ package jpabook.jpashop_clone.repository;
 
 import jpabook.jpashop_clone.domain.Member;
 import jpabook.jpashop_clone.domain.Order;
+import jpabook.jpashop_clone.domain.OrderItem;
 import jpabook.jpashop_clone.domain.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -67,6 +68,16 @@ public class OrderRepository {
                             " from Order o" +
                             " join o.member m" +
                             " join o.delivery d",OrderSimpleQueryDto.class
+        ).getResultList();
+    }
+
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d" +
+                        " join fetch o.orderItems oi" +
+                        " join fetch oi.item i", Order.class
         ).getResultList();
     }
 }
