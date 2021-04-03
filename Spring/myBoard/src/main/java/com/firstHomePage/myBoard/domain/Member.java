@@ -1,6 +1,8 @@
 package com.firstHomePage.myBoard.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -8,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
+@NoArgsConstructor
 public class Member {
 
     @Id @GeneratedValue

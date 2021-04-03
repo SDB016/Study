@@ -1,6 +1,8 @@
 package com.firstHomePage.myBoard.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -11,8 +13,9 @@ import java.util.List;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Getter
+@Getter @Setter
 @Table(name = "posts")
+@NoArgsConstructor
 public class Post {
 
     @Id @GeneratedValue
@@ -33,10 +36,19 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    public Post(Member member, @NotEmpty String title, @NotEmpty String contents, LocalDateTime lastUpdateTime) {
-        this.title = title;
-        this.contents = contents;
-        this.lastUpdateTime = lastUpdateTime;
-        this.member = member;
+    //==연관관계 메서드==//
+    public void conMember(Member member) {
+        this.setMember(member);
+        member.getPost().add(this);
+    }
+
+    //==생성 메서드==//
+    public static Post createPost(Member member, String title, String contents) {
+        Post post = new Post();
+        post.setTitle(title);
+        post.setContents(contents);
+        post.setLastUpdateTime(LocalDateTime.now());
+        post.conMember(member);
+        return post;
     }
 }

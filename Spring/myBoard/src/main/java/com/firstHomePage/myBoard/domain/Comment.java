@@ -1,6 +1,8 @@
 package com.firstHomePage.myBoard.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -9,7 +11,8 @@ import java.time.LocalDateTime;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Getter
+@Getter @Setter
+@NoArgsConstructor
 public class Comment {
 
     @Id @GeneratedValue
@@ -28,10 +31,20 @@ public class Comment {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Comment(Member member, Post post,@NotEmpty String contents, LocalDateTime lastUpdateTime) {
-        this.contents = contents;
-        this.lastUpdateTime = lastUpdateTime;
+
+    //==연관관계 메서드==//
+    public void conPost(Post post) {
         this.post = post;
-        this.member = member;
+        post.getComments().add(this);
+    }
+
+    //==생성 메서드==//
+    public static Comment createComment(Member member, Post post, String contents) {
+        Comment comment = new Comment();
+        comment.setMember(member);
+        comment.conPost(post);
+        comment.setContents(contents);
+        comment.setLastUpdateTime(LocalDateTime.now());
+        return comment;
     }
 }
