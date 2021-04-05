@@ -45,4 +45,13 @@ public class PostController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/posts")
+    public String postList(Model model){
+
+        List<Post> posts = postService.findAll();
+
+        model.addAttribute("posts", posts);
+        return "posts/postList";
+    }
 }
