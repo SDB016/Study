@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +19,18 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @Column(length = 18)
-    @NotEmpty
+    @Column(length = 18) @NotEmpty
     private String loginId;
-    @Column(length = 12)
-    @NotEmpty
+
+    @Column(length = 12) @NotEmpty
     private String loginPwd;
-    @Column(length = 4)
-    @NotEmpty
+
+    @Column(length = 4) @NotEmpty
     private String name;
-    @Column(length = 10)
-    @NotEmpty
+
+    @Column(length = 10) @NotEmpty
     private String nickname;
+
     @Column(length = 2)
     private int age;
 
