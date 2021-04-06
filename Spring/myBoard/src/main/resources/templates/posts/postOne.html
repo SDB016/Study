@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div class="row" th:object="${findPost}">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 th:text="${findPost.title}"></h1>
+            </div>
+            </br>
+            <span class="badge badge-default" th:text="${findPost.member.nickname}">작성자</span>
+            <span class="badge badge-default" th:text="${#temporals.format(findPost.lastUpdateTime,'yyyy-MM-dd HH:MM:SS')}">작성 시간</span>
+            </br></br></br>
+            <p th:text="${findPost.contents}"></p>
+        </div>
+    </div>
+    <br/>
+    <div th:replace="fragments/footer::footer"/>
+</div><!-- /container -->
+</body>
