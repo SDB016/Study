@@ -6,7 +6,7 @@
         border-color: #bd2130;
     }
 </style>
-<body>
+<body class="text-center">
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <form role="form" action="/posts/create" method="post">
@@ -36,7 +36,7 @@
             <p th:if="${#fields.hasErrors('contents')}"
                th:errors="*{contents}">Incorrect date</p>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Join</button>
     </form>
     <br/>
     <div th:replace="fragments/footer::footer"/>
