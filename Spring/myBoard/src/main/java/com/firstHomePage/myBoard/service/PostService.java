@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +28,25 @@ public class PostService {
 
     public List<Post> findAll() {
         return postRepository.findAll();
+    }
+
+    @Transactional
+    public void update(Long id, String title, String contents) {
+        Post post = postRepository.findOne(id);
+
+        String newTitle = Optional.ofNullable(title).orElse(post.getTitle());
+        String newContent = Optional.ofNullable(contents).orElse(post.getContents());
+
+        post.setTitle(newTitle);
+        post.setContents(newContent);
+
+        post.setLastUpdateTime(LocalDateTime.now());
+        postRepository.save(post);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Post post = postRepository.findOne(id);
+        postRepository.delete(post);
     }
 }
