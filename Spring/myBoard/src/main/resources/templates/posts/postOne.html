@@ -17,6 +17,24 @@
         </div>
     </div>
     <br/>
-    <div th:replace="fragments/footer::footer"/>
+    <div class="footer" th:fragment="footer">
+        <p th:object="${findPost}" th:text="|댓글 수: ${findPost.comments.size()}|">댓글 수</p>
+        <form role="form" action="/posts/addComment" method="post">
+            <div class="form-group">
+                <label for="members">작성자</label>
+                <select name="memberId" id="members" class="form-control">
+                    <option th:each="member : ${members}"
+                            th:value="${member.id}"
+                            th:text="${member.nickname}"/>
+                </select>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" th:object="${comment}" th:field="*{contents}"
+                          cols="20" rows="5" placeholder="댓글을 작성해주세요"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary float-right">저장</button>
+        </form>
+        <p>&copy; My Board - DB</p>
+    </div>
 </div><!-- /container -->
 </body>

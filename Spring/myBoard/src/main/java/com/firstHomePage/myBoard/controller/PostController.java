@@ -5,6 +5,7 @@ import com.firstHomePage.myBoard.domain.Post;
 import com.firstHomePage.myBoard.service.MemberService;
 import com.firstHomePage.myBoard.service.PostService;
 import com.firstHomePage.myBoard.web.PostForm;
+import com.firstHomePage.myBoard.web.commentForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -56,11 +57,17 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public String post(@PathVariable("postId") Long postId, Model model) {
+    public String viewPost(@PathVariable("postId") Long postId, Model model) {
 
         Post post = postService.findOne(postId);
+        List<Member> members = memberService.findAll();
         model.addAttribute("findPost", post);
+        model.addAttribute("members", members);
+        model.addAttribute("comment", new commentForm());
 
         return "posts/postOne";
     }
+
+    @PostMapping("/posts/addComment")
+    public String addComment(@Valid)
 }
