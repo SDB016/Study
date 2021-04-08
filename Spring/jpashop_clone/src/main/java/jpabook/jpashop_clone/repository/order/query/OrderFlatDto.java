@@ -3,36 +3,40 @@ package jpabook.jpashop_clone.repository.order.query;
 import jpabook.jpashop_clone.domain.Address;
 import jpabook.jpashop_clone.domain.OrderStatus;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
-@EqualsAndHashCode(of ="orderId")
-public class OrderQueryDto {
+public class OrderFlatDto {
 
     private Long orderId;
     private String name;
     private LocalDateTime orderDate;
     private OrderStatus status;
     private Address address;
-    private List<OrderItemQueryDto> orderItems;
 
-    public OrderQueryDto(Long orderId, String name, LocalDateTime orderDate, OrderStatus status, Address address, List<OrderItemQueryDto> orderItems) {
+    private String itemName;
+    private int orderPrice;
+    private int count;
+
+    public OrderFlatDto(Long orderId, String name, LocalDateTime orderDate, OrderStatus status, Address address, String itemName, int orderPrice) {
         this.orderId = orderId;
         this.name = name;
         this.orderDate = orderDate;
         this.status = status;
         this.address = address;
-        this.orderItems = orderItems;
+        this.itemName = itemName;
+        this.orderPrice = orderPrice;
     }
 
-    public OrderQueryDto(Long orderId, String name, LocalDateTime orderDate, OrderStatus status, Address address) {
+    public OrderFlatDto(Long orderId, String name, LocalDateTime orderDate, OrderStatus status, Address address, String itemName, int orderPrice, int count) {
         this.orderId = orderId;
         this.name = name;
         this.orderDate = orderDate;
         this.status = status;
         this.address = address;
+        this.itemName = itemName;
+        this.orderPrice = orderPrice;
+        this.count = count;
     }
 }
