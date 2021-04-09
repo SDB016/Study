@@ -3,39 +3,94 @@ package com.firstHomePage.myBoard.controller;
 import com.firstHomePage.myBoard.domain.Member;
 import com.firstHomePage.myBoard.service.MemberService;
 import com.firstHomePage.myBoard.web.MemberForm;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/members/new")
-    public String createForm(Model model){
-        model.addAttribute("memberForm", new MemberForm());
-        return "members/createMemberForm";
+    @PostMapping("/member")
+    public CreateMemberResponse join(@RequestBody @Valid CreateMemberRequest request){
+
+        Member member = new Member(request.id, request.password, request.name, request.nickname, request.age);
+        Long memberId = memberService.join(member);
+
+        return new CreateMemberResponse(memberId);
     }
 
-    @PostMapping("/members/new")
-    public String create(@Valid MemberForm form, BindingResult result) {
+    @PatchMapping("/member/{id}")
+    public String updateMember(
+            @PathVariable Long id,
+            @RequestBody @Valid UpdateMemberRequest request){
 
-        if (result.hasErrors()) {
-            return "members/createMemberForm";
-        }
+        memberService.update(id, request.id, request.password, request.nickname);
 
-        Member member = new Member(form.getLoginId(), form.getLoginPwd(), form.getName(), form.getNickname(), form.getAge());
-        memberService.join(member);
+        return "Update Done!";
+    }
 
-        return "redirect:/";
+    @GetMapping("/member/{memberId}")
+    public findMemberIdResponse findMemberIDByName(@RequestBody @Valid findMemberIdRequest request){
+
+        Member member = memberService.findOneByName(request.getName());
+        return new findMemberIdResponse(member.getLoginId());
+    }
+
+    public void findMemberByIdPwd(){
+
+    }
+
+    @DeleteMapping("/member/{id}")
+    public String deleteMember(@PathVariable Long id){
+
+        Member member = memberService.findOne(id);
+        memberService.delete(member);
+
+        return "Delete Done!";
+    }
+
+
+    //=====static class========//
+    @Data
+    @AllArgsConstructor
+    static class CreateMemberResponse{
+        private Long id;
+    }
+
+    @Data
+    static class CreateMemberRequest{
+        private String id;
+        private String password;
+        private String name;
+        private String nickname;
+        private int age;
+    }
+
+    @Data
+    static class UpdateMemberRequest{
+        private String id;
+        private String password;
+        private String nickname;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class findMemberIdResponse{
+        private String id;
+    }
+
+    @Data
+    static class findMemberIdRequest{
+        private String name;
     }
 }

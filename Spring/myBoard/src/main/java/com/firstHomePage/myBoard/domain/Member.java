@@ -1,5 +1,6 @@
 package com.firstHomePage.myBoard.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,9 +14,15 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@SequenceGenerator(
+        name = "member_seq_generator",
+        sequenceName = "member_seq",
+        allocationSize = 1
+)
+@EqualsAndHashCode
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
     @Column(name = "member_id")
     private Long id;
 

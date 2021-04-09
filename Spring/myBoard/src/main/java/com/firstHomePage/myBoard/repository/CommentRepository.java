@@ -1,6 +1,7 @@
 package com.firstHomePage.myBoard.repository;
 
 import com.firstHomePage.myBoard.domain.Comment;
+import com.firstHomePage.myBoard.domain.Member;
 import com.firstHomePage.myBoard.domain.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -33,4 +34,31 @@ public class CommentRepository {
                 .getResultList();
     }
 
+    public void delete(Comment comment) {
+        em.remove(comment);
+    }
+
+    public List<Comment> findAllByPostWithMember(Post post, int offset, int limit) {
+
+        return em.createQuery(
+                "select c from Comment c" +
+                        " join fetch c.member m" +
+                        " where c.post =: post", Comment.class)
+                .setParameter("post", post)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public List<Comment> findAllByMemberWithPost(Member member, int offset, int limit) {
+
+        return em.createQuery(
+                "select c from Comment c" +
+                        " join fetch c.post p" +
+                        " where c.member =: member", Comment.class)
+                .setParameter("member", member)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +39,29 @@ public class MemberService {
 
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
+    }
+
+    @Transactional
+    public void delete(Member member) {
+        memberRepository.delete(member);
+    }
+
+    @Transactional
+    public void update(Long id, String newId, String newPwd, String newNickname) {
+        Member member = memberRepository.findOne(id);
+
+        String new_id = Optional.ofNullable(newId).orElse(member.getLoginId());
+        String new_pwd = Optional.ofNullable(newPwd).orElse(member.getLoginPwd());
+        String new_nickname = Optional.ofNullable(newNickname).orElse(member.getNickname());
+
+        member.setLoginId(new_id);
+        member.setLoginPwd(new_pwd);
+        member.setNickname(new_nickname);
+
+        memberRepository.save(member);
+    }
+
+    public Member findOneByName(String name) {
+        return memberRepository.findOneByName(name);
     }
 }

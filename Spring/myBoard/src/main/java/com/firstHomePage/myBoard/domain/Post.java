@@ -1,5 +1,6 @@
 package com.firstHomePage.myBoard.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,12 +15,18 @@ import java.util.List;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
+@SequenceGenerator(
+        name = "posts_seq_generator",
+        sequenceName = "posts_seq",
+        allocationSize = 1
+)
 @Getter @Setter
 @Table(name = "posts")
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Post {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_seq_generator")
     @Column(name="post_id")
     private Long id;
 

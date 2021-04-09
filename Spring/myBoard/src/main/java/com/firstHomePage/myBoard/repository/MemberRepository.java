@@ -54,4 +54,16 @@ public class MemberRepository {
                 .setParameter("loginPwd", loginPwd)
                 .getResultList();
     }
+
+    public void delete(Member member) {
+        em.remove(member);
+    }
+
+    public Member findOneByName(String name) {
+        return em.createQuery(
+                "select m from Member m where m.name =:name", Member.class)
+                .setParameter("name", name)
+                .getResultList()
+                .get(0);
+    }
 }

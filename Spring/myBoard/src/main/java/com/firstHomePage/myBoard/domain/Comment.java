@@ -16,9 +16,14 @@ import static javax.persistence.FetchType.LAZY;
 @Getter @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+@SequenceGenerator(
+        name = "comment_seq_generator",
+        sequenceName = "comment_seq",
+        allocationSize = 1
+)
 public class Comment {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_seq_generator")
     @Column(name="comment_id")
     private Long id;
 
