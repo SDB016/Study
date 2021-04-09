@@ -36,4 +36,11 @@ public class PostRepository {
         em.remove(post);
     }
 
+    public List<Post> findAllWithMember() {
+
+        return em.createQuery(
+                "select p from Post p" +
+                        " join fetch p.member m", Post.class)
+                .getResultList();
+    }
 }

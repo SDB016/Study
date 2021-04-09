@@ -10,6 +10,7 @@ import com.firstHomePage.myBoard.web.PostForm;
 import com.firstHomePage.myBoard.web.commentForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ import static java.util.stream.Collectors.toList;
 public class PostController {
 
     private final PostService postService;
+    private final PostRepository postRepository;
     private final MemberService memberService;
 
     @PostMapping("/post")
@@ -43,15 +45,15 @@ public class PostController {
 
         Long id = postService.save(post);
         return new CreatePostResponse(id);
-        //멤버, 댓글 추가 필요요
+        //멤버, 댓글 추가 필요
     }
 
     @GetMapping("/post")
     public ResultPost getAllPost(){
 
-        List<Post> posts = postService.findAll();
+        List<Post> posts = postRepository.findAllWithMember();
         List<PostDto> collect = posts.stream()
-                .map(p -> new PostDto(p.getId(), p.getTitle(), p.getContents(), p.getViews(), p.getLastUpdateTime()))
+                .map(p -> new PostDto(p.getId(), p.getMember().getName(), p.getTitle(), p.getContents(), p.getViews(), p.getLastUpdateTime()))
                 .collect(toList());
         return new ResultPost<>(collect);
     }
@@ -60,7 +62,7 @@ public class PostController {
     public ResultPost getPost(@PathVariable Long id){
 
         Post post = postService.findOne(id);
-        PostDto postDto = new PostDto(post.getId(), post.getTitle(), post.getContents(), post.getViews(), post.getLastUpdateTime());
+        PostDto postDto = new PostDto(post.getId(), post.getMember().getName(), post.getTitle(), post.getContents(), post.getViews(), post.getLastUpdateTime());
         return new ResultPost(postDto);
     }
 
@@ -69,16 +71,18 @@ public class PostController {
                            @RequestBody @Valid UpdatePostRequest request){
 
         postService.update(id, request.getTitle(), request.getContents());
-        return "update Done!";
+        return "Update Done!";
     }
 
     @DeleteMapping("/post/{id}")
     public String deletePost(@PathVariable Long id){
 
         postService.delete(id);
-        return "delete Done!";
+        return "Delete Done!";
     }
 
+
+    //==static class==//
     @Data
     @AllArgsConstructor
     static class ResultPost<T>{
@@ -104,16 +108,15 @@ public class PostController {
     static class PostDto{
 
         private Long id;
+        private String writer;
         private String title;
         private String contents;
-        //private Member writer;
         //private List<Comment>comments;
         private int views;
         private LocalDateTime time;
     }
 
     @Data
-    @AllArgsConstructor
     static class UpdatePostRequest{
 
         private String title;

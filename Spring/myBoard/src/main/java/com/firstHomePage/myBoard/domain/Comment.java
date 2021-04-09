@@ -1,5 +1,6 @@
 package com.firstHomePage.myBoard.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Comment {
 
     @Id @GeneratedValue
