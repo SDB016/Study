@@ -61,7 +61,11 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public Member findOneByName(String name) {
-        return memberRepository.findOneByName(name);
+    public String findIdByName(String name) {
+        return memberRepository.findIdByName(name);
+    }
+
+    public String findPwdByNameId(String name, String id) {
+        return memberRepository.findPwdByNameId(name, id);
     }
 }

@@ -39,15 +39,18 @@ public class MemberController {
         return "Update Done!";
     }
 
-    @GetMapping("/member/{memberId}")
-    public findMemberIdResponse findMemberIDByName(@RequestBody @Valid findMemberIdRequest request){
+    @GetMapping("/member/id")
+    public findMemberIdResponse findMemberIdByName(@RequestBody @Valid findMemberIdRequest request){
 
-        Member member = memberService.findOneByName(request.getName());
-        return new findMemberIdResponse(member.getLoginId());
+        String id = memberService.findIdByName(request.getName());
+        return new findMemberIdResponse(id);
     }
 
-    public void findMemberByIdPwd(){
+    @GetMapping("/member/pwd")
+    public findMemberPwdResponse findMemberPwdByNameId(@RequestBody @Valid findMemberPwdRequest request){
 
+        String pwd = memberService.findPwdByNameId(request.name, request.id);
+        return new findMemberPwdResponse(pwd);
     }
 
     @DeleteMapping("/member/{id}")
@@ -86,11 +89,24 @@ public class MemberController {
     @Data
     @AllArgsConstructor
     static class findMemberIdResponse{
-        private String id;
+        private String userId;
     }
 
     @Data
     static class findMemberIdRequest{
         private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class findMemberPwdResponse{
+        private String password;
+    }
+
+    @Data
+    static class findMemberPwdRequest{
+
+        private String name;
+        private String id;
     }
 }

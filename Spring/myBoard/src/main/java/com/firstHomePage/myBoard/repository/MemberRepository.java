@@ -59,10 +59,19 @@ public class MemberRepository {
         em.remove(member);
     }
 
-    public Member findOneByName(String name) {
+    public String findIdByName(String name) {
         return em.createQuery(
-                "select m from Member m where m.name =:name", Member.class)
+                "select m.id from Member m where m.name =:name", String.class)
                 .setParameter("name", name)
+                .getResultList()
+                .get(0);
+    }
+
+    public String findPwdByNameId(String name, String id) {
+        return em.createQuery(
+                "select m.loginPwd from Member m where m.name =:name and m.loginId =: id", String.class)
+                .setParameter("name", name)
+                .setParameter("id", id)
                 .getResultList()
                 .get(0);
     }
