@@ -3,30 +3,45 @@ package com.firstHomePage.myBoard.service;
 import com.firstHomePage.myBoard.domain.Member;
 import com.firstHomePage.myBoard.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Long join(Member member){
         validateDuplicateMember(member);
+        //**password hashing**//
+        String encodedPwd = passwordEncoder.encode(member.getLoginPwd());
+        member.setLoginPwd(encodedPwd);
+        //****//
         memberRepository.save(member);
         return member.getId();
     }
 
     private void validateDuplicateMember(Member member) {
 
-        List<Member> members = memberRepository.findByLoginInfo(member.getLoginId(), member.getLoginPwd());
-        if(!members.isEmpty()){
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        List<Member> members = memberRepository.findByUserId(member.getLoginId());
+        List<String> pwds = members.stream()
+                .map(m -> m.getLoginPwd())
+                .collect(toList());
+
+        for (String pwd : pwds) {
+            if (passwordEncoder.matches(member.getLoginPwd(), pwd)){
+                throw new IllegalStateException("이미 존재하는 회원입니다.");
+            }
         }
     }
 

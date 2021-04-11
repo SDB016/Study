@@ -29,7 +29,7 @@ public class Member {
     @Column(length = 18) @NotEmpty
     private String loginId;
 
-    @Column(length = 12) @NotEmpty
+    @NotEmpty
     private String loginPwd;
 
     @Column(length = 4) @NotEmpty

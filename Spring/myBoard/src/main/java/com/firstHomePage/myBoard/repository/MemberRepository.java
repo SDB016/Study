@@ -46,15 +46,6 @@ public class MemberRepository {
                 .getResultList();
     }
 
-    public List<Member> findByLoginInfo(String loginId, String loginPwd){
-        return em.createQuery("select m from Member m " +
-                "where m.loginId =:loginId " +
-                "and m.loginPwd =:loginPwd", Member.class)
-                .setParameter("loginId", loginId)
-                .setParameter("loginPwd", loginPwd)
-                .getResultList();
-    }
-
     public void delete(Member member) {
         em.remove(member);
     }
@@ -74,5 +65,12 @@ public class MemberRepository {
                 .setParameter("id", id)
                 .getResultList()
                 .get(0);
+    }
+
+    public List<Member> findByUserId(String loginId) {
+        return em.createQuery(
+                "select m from Member m where m.loginId =:userId", Member.class)
+                .setParameter("userId", loginId)
+                .getResultList();
     }
 }
