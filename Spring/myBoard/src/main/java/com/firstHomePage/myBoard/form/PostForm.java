@@ -1,11 +1,9 @@
-package com.firstHomePage.myBoard.web;
+package com.firstHomePage.myBoard.form;
 
-import com.firstHomePage.myBoard.domain.Member;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 

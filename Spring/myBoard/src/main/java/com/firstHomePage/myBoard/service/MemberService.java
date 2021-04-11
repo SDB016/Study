@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -22,7 +21,9 @@ public class MemberService {
 
     @Transactional
     public Long join(Member member){
-        validateDuplicateMember(member);
+        if(isDuplicateMember(member.getLoginId(), member.getLoginPwd())){
+            throw new IllegalStateException("이미 존재하는 ID & PASSWORD 입니다.");
+        }
         //**password hashing**//
         String encodedPwd = passwordEncoder.encode(member.getLoginPwd());
         member.setLoginPwd(encodedPwd);
@@ -31,19 +32,6 @@ public class MemberService {
         return member.getId();
     }
 
-    private void validateDuplicateMember(Member member) {
-
-        List<Member> members = memberRepository.findByUserId(member.getLoginId());
-        List<String> pwds = members.stream()
-                .map(m -> m.getLoginPwd())
-                .collect(toList());
-
-        for (String pwd : pwds) {
-            if (passwordEncoder.matches(member.getLoginPwd(), pwd)){
-                throw new IllegalStateException("이미 존재하는 회원입니다.");
-            }
-        }
-    }
 
     /**
      * 전체 회원 조회
@@ -82,5 +70,25 @@ public class MemberService {
 
     public String findPwdByNameId(String name, String id) {
         return memberRepository.findPwdByNameId(name, id);
+    }
+
+    public boolean login(String userId, String userPwd) {
+        return isDuplicateMember(userId, userPwd);
+    }
+
+
+    private boolean isDuplicateMember(String userId, String userPwd) {
+
+        List<Member> members = memberRepository.findByUserId(userId);
+        List<String> pwds = members.stream()
+                .map(m -> m.getLoginPwd())
+                .collect(toList());
+
+        for (String pwd : pwds) {
+            if (passwordEncoder.matches(userPwd, pwd)){
+                return true;
+            }
+        }
+        return false;
     }
 }

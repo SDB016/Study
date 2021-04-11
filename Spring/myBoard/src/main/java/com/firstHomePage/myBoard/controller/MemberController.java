@@ -2,14 +2,9 @@ package com.firstHomePage.myBoard.controller;
 
 import com.firstHomePage.myBoard.domain.Member;
 import com.firstHomePage.myBoard.service.MemberService;
-import com.firstHomePage.myBoard.web.MemberForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,10 +18,21 @@ public class MemberController {
     @PostMapping("/member")
     public CreateMemberResponse join(@RequestBody @Valid CreateMemberRequest request){
 
-        Member member = new Member(request.id, request.password, request.name, request.nickname, request.age);
+        Member member = new Member(request.userId, request.userPwd, request.name, request.nickname, request.age);
         Long memberId = memberService.join(member);
 
         return new CreateMemberResponse(memberId);
+    }
+
+    @PostMapping("/member/login")
+    public LoginMemberResponse login(@RequestBody @Valid LoginMemberRequest request) {
+
+        boolean result = memberService.login(request.userId, request.userPwd);
+        if(result) {
+            return new LoginMemberResponse("Success");
+        }else{
+            return new LoginMemberResponse("Failed");
+        }
     }
 
     @PatchMapping("/member/{id}")
@@ -34,7 +40,7 @@ public class MemberController {
             @PathVariable Long id,
             @RequestBody @Valid UpdateMemberRequest request){
 
-        memberService.update(id, request.id, request.password, request.nickname);
+        memberService.update(id, request.userId, request.userPwd, request.nickname);
 
         return "Update Done!";
     }
@@ -49,7 +55,7 @@ public class MemberController {
     @GetMapping("/member/pwd")
     public findMemberPwdResponse findMemberPwdByNameId(@RequestBody @Valid findMemberPwdRequest request){
 
-        String pwd = memberService.findPwdByNameId(request.name, request.id);
+        String pwd = memberService.findPwdByNameId(request.name, request.userId);
         return new findMemberPwdResponse(pwd);
     }
 
@@ -72,8 +78,8 @@ public class MemberController {
 
     @Data
     static class CreateMemberRequest{
-        private String id;
-        private String password;
+        private String userId;
+        private String userPwd;
         private String name;
         private String nickname;
         private int age;
@@ -81,8 +87,8 @@ public class MemberController {
 
     @Data
     static class UpdateMemberRequest{
-        private String id;
-        private String password;
+        private String userId;
+        private String userPwd;
         private String nickname;
     }
 
@@ -100,13 +106,27 @@ public class MemberController {
     @Data
     @AllArgsConstructor
     static class findMemberPwdResponse{
-        private String password;
+        private String userPwd;
     }
 
     @Data
     static class findMemberPwdRequest{
 
         private String name;
-        private String id;
+        private String userId;
+    }
+
+    @Data
+    static class LoginMemberRequest{
+
+        private String userId;
+        private String userPwd;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class LoginMemberResponse{
+
+        private String loginResult;
     }
 }

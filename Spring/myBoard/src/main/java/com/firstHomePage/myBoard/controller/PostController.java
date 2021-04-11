@@ -1,28 +1,18 @@
 package com.firstHomePage.myBoard.controller;
 
-import com.firstHomePage.myBoard.domain.Comment;
 import com.firstHomePage.myBoard.domain.Member;
 import com.firstHomePage.myBoard.domain.Post;
 import com.firstHomePage.myBoard.repository.PostRepository;
 import com.firstHomePage.myBoard.service.MemberService;
 import com.firstHomePage.myBoard.service.PostService;
-import com.firstHomePage.myBoard.web.PostForm;
-import com.firstHomePage.myBoard.web.commentForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 

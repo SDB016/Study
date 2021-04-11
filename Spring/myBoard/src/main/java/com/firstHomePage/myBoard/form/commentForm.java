@@ -1,6 +1,5 @@
-package com.firstHomePage.myBoard.web;
+package com.firstHomePage.myBoard.form;
 
-import com.firstHomePage.myBoard.domain.Post;
 import lombok.Getter;
 import lombok.Setter;
 
