@@ -72,7 +72,7 @@ public class CommentController {
     }
 
 
-    @PutMapping("/post/{postId}/comment/{commentId}")
+    @PatchMapping("/post/{postId}/comment/{commentId}")
     public String updateComment(@PathVariable(name = "postId")Long postId,
                               @PathVariable(name = "commentId")Long commentId,
                               @RequestBody @Valid UpdateCommentRequest request){
