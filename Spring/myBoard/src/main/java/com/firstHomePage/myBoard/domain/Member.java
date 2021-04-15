@@ -41,8 +41,6 @@ public class Member {
     @Column(length = 2)
     private int age;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Post> post = new ArrayList<>();
 
     public Member(@NotEmpty String loginId, @NotEmpty String loginPwd, @NotEmpty String name, @NotEmpty String nickname, int age) {
         this.loginId = loginId;

@@ -27,11 +27,7 @@ public class PostController {
     @PostMapping("/post")
     public CreatePostResponse savePost(@RequestBody @Valid CreatePostRequest request){
 
-        //====수정 필요=====//
-        Member member = memberService.findOne(1L);
-        //============================//
-
-        Post post = Post.createPost(member, request.title, request.contents);
+        Post post = Post.createPost(request.title, request.contents);
 
         Long id = postService.save(post);
         return new CreatePostResponse(id);
@@ -43,7 +39,7 @@ public class PostController {
 
         List<Post> posts = postRepository.findAllWithMember();
         List<PostDto> collect = posts.stream()
-                .map(p -> new PostDto(p.getId(), p.getMember().getName(), p.getTitle(), p.getContents(), p.getViews(), p.getLastUpdateTime()))
+                .map(p -> new PostDto(p.getId(), p.getCreatedBy(), p.getTitle(), p.getContents(), p.getViews(), p.getLastModifiedDate()))
                 .collect(toList());
         return new ResultPost<>(collect);
     }
@@ -52,7 +48,7 @@ public class PostController {
     public ResultPost getPost(@PathVariable Long id){
 
         Post post = postService.findOne(id);
-        PostDto postDto = new PostDto(post.getId(), post.getMember().getName(), post.getTitle(), post.getContents(), post.getViews(), post.getLastUpdateTime());
+        PostDto postDto = new PostDto(post.getId(), post.getCreatedBy(), post.getTitle(), post.getContents(), post.getViews(), post.getLastModifiedDate());
         return new ResultPost(postDto);
     }
 

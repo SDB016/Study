@@ -2,12 +2,16 @@ package com.firstHomePage.myBoard.controller;
 
 import com.firstHomePage.myBoard.domain.Member;
 import com.firstHomePage.myBoard.service.MemberService;
+import com.firstHomePage.myBoard.util.Session;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,13 +29,16 @@ public class MemberController {
     }
 
     @PostMapping("/member/login")
-    public LoginMemberResponse login(@RequestBody @Valid LoginMemberRequest request) {
+    public LoginMemberResponse login(@RequestBody @Valid LoginMemberRequest loginRequest, HttpServletRequest httpRequest) {
 
-        boolean result = memberService.login(request.userId, request.userPwd);
-        if(result) {
-            return new LoginMemberResponse("Success");
+        Optional<Member> optionalMember = Optional.ofNullable(memberService.login(loginRequest.getUserId(), loginRequest.getUserPwd()));
+        if(optionalMember.isPresent()) {
+            HttpSession session = httpRequest.getSession();
+            session.setAttribute(Session.SESSION_ID, optionalMember.get().getLoginId());
+
+            return new LoginMemberResponse("SUCCESS");
         }else{
-            return new LoginMemberResponse("Failed");
+            return new LoginMemberResponse("FAIL");
         }
     }
 

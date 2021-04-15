@@ -23,8 +23,8 @@ import static javax.persistence.FetchType.LAZY;
 @Getter @Setter
 @Table(name = "posts")
 @NoArgsConstructor
-@EqualsAndHashCode
-public class Post {
+@EqualsAndHashCode(callSuper = false)
+public class Post extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_seq_generator")
     @Column(name="post_id")
@@ -34,29 +34,18 @@ public class Post {
     private String title;
     @NotEmpty
     private String contents;
-    private LocalDateTime lastUpdateTime;
     private int views;
-
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     //==연관관계 메서드==//
-    public void conMember(Member member) {
-        this.setMember(member);
-        member.getPost().add(this);
-    }
 
     //==생성 메서드==//
-    public static Post createPost(Member member, String title, String contents) {
+    public static Post createPost(String title, String contents) {
         Post post = new Post();
         post.setTitle(title);
         post.setContents(contents);
-        post.setLastUpdateTime(LocalDateTime.now());
-        post.conMember(member);
         return post;
     }
 }

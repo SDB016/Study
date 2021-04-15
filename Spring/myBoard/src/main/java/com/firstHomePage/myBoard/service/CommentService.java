@@ -40,7 +40,6 @@ public class CommentService {
     public void update(Long commentId, String contents) {
         Comment comment = commentRepository.findOne(commentId);
         comment.setContents(contents);
-        comment.setLastUpdateTime(LocalDateTime.now());
         commentRepository.save(comment);
     }
 

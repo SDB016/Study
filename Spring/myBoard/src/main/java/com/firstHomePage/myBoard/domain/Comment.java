@@ -15,13 +15,13 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @SequenceGenerator(
         name = "comment_seq_generator",
         sequenceName = "comment_seq",
         allocationSize = 1
 )
-public class Comment {
+public class Comment extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_seq_generator")
     @Column(name="comment_id")
@@ -29,16 +29,10 @@ public class Comment {
 
     @NotEmpty
     private String contents;
-    private LocalDateTime lastUpdateTime;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
-
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
 
     //==연관관계 메서드==//
     public void conPost(Post post) {
@@ -47,12 +41,10 @@ public class Comment {
     }
 
     //==생성 메서드==//
-    public static Comment createComment(Member member, Post post, String contents) {
+    public static Comment createComment(Post post, String contents) {
         Comment comment = new Comment();
-        comment.setMember(member);
         comment.conPost(post);
         comment.setContents(contents);
-        comment.setLastUpdateTime(LocalDateTime.now());
         return comment;
     }
 }

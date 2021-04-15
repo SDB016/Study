@@ -25,15 +25,15 @@ public class CommentAuthInterceptor implements HandlerInterceptor {
         String httpMethod = request.getMethod();
 
         if (httpMethod.equals("PATCH") || httpMethod.equals("DELETE")) {
-            String sessionItem = (String) request.getSession().getAttribute(Session.SESSION_ID);
+            String sessionId = (String) request.getSession().getAttribute(Session.SESSION_ID);
 
             Map<?, ?> pathVariables = (Map<?, ?>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
             long id = Long.parseLong((String) pathVariables.get("id"));
 
             Comment comment = commentRepository.findOne(id);
-            String commentWriter = comment.getMember().getName();
+            String commentWriter = comment.getCreatedBy();
 
-            if (!commentWriter.equals(sessionItem)) {
+            if (!commentWriter.equals(sessionId)) {
                 response.getOutputStream().println("NOT AUTHORIZE!!");
                 return false;
             }

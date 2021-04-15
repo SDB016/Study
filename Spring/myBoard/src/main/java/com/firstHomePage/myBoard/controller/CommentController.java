@@ -30,12 +30,8 @@ public class CommentController {
     @PostMapping("/post/{postId}/comment")
     public CreateCommentResponse createComment(@RequestBody @Valid CreateCommentRequest request, @PathVariable Long postId){
 
-        //=========수정 필요===========//
-        Member member = memberService.findOne(1L);
-        //============================//
-
         Post post = postService.findOne(postId);
-        Comment comment = Comment.createComment(member, post, request.getContents());
+        Comment comment = Comment.createComment(post, request.getContents());
         Long commentId = commentService.save(comment);
 
         return new CreateCommentResponse(commentId);
@@ -129,10 +125,10 @@ public class CommentController {
 
         public CommentDto(Comment comment) {
             id = comment.getId();
-            name = comment.getMember().getName();
+            name = comment.getCreatedBy();
             title = comment.getPost().getTitle();
             content = comment.getContents();
-            updateTime = comment.getLastUpdateTime();
+            updateTime = comment.getLastModifiedDate();
         }
     }
 }

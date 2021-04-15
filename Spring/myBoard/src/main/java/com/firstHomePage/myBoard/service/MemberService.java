@@ -21,8 +21,8 @@ public class MemberService {
 
     @Transactional
     public Long join(Member member){
-        if(isDuplicateMember(member.getLoginId(), member.getLoginPwd())){
-            throw new IllegalStateException("이미 존재하는 ID & PASSWORD 입니다.");
+        if(isDuplicateMember(member.getLoginId())){
+            throw new IllegalStateException("이미 존재하는 ID 입니다.");
         }
         //**password hashing**//
         String encodedPwd = passwordEncoder.encode(member.getLoginPwd());
@@ -72,23 +72,22 @@ public class MemberService {
         return memberRepository.findPwdByNameId(name, id);
     }
 
-    public boolean login(String userId, String userPwd) {
-        return isDuplicateMember(userId, userPwd);
+    public Member login(String userId, String userPwd) {
+        List<Member> memberList = memberRepository.findByUserId(userId);
+        for (Member member : memberList) {
+            if (passwordEncoder.matches(userPwd, member.getLoginPwd())) {
+                return member;
+            }
+        }
+        return null;
     }
 
 
-    private boolean isDuplicateMember(String userId, String userPwd) {
+    private boolean isDuplicateMember(String userId) {
 
         List<Member> members = memberRepository.findByUserId(userId);
-        List<String> pwds = members.stream()
-                .map(m -> m.getLoginPwd())
-                .collect(toList());
-
-        for (String pwd : pwds) {
-            if (passwordEncoder.matches(userPwd, pwd)){
-                return true;
-            }
-        }
-        return false;
+        if (members.size() != 0) {
+            return true;
+        } else return false;
     }
 }

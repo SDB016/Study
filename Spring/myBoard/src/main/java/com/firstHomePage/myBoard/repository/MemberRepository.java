@@ -67,10 +67,10 @@ public class MemberRepository {
                 .get(0);
     }
 
-    public List<Member> findByUserId(String loginId) {
+    public List<Member> findByUserId(String userId) {
         return em.createQuery(
                 "select m from Member m where m.loginId =:userId", Member.class)
-                .setParameter("userId", loginId)
+                .setParameter("userId", userId)
                 .getResultList();
     }
 }

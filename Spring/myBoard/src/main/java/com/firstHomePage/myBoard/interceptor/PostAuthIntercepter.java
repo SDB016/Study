@@ -25,16 +25,16 @@ public class PostAuthIntercepter implements HandlerInterceptor {
         String httpMethod = request.getMethod();
 
         if (httpMethod.equals("PATCH") || httpMethod.equals("DELETE")) {
-            String sessionItem = (String) request.getSession().getAttribute(Session.SESSION_ID);
+            String sessionId = (String) request.getSession().getAttribute(Session.SESSION_ID);
 
             Map<?, ?> pathVariable = (Map<?, ?>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
             System.out.println("=============>> pathVariable = " + pathVariable);
             long id = Long.parseLong((String) pathVariable.get("id"));
 
             Post post = postRepository.findOne(id);
-            String postWriter = post.getMember().getName();
+            String postWriter = post.getCreatedBy();
 
-            if (!postWriter.equals(sessionItem)) {
+            if (!postWriter.equals(sessionId)) {
                 response.getOutputStream().println("NOT AUTHORIZE!!");
                 return false;
             }

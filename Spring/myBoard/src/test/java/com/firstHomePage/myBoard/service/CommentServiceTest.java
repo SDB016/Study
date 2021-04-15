@@ -26,33 +26,29 @@ public class CommentServiceTest {
     @Test
     public void 저장() throws Exception {
         //given
-        Member member = new Member("newId", "newPwd", "사용자", "사용자1", 22);
-        Post post = Post.createPost(member, "첫 제목", "본문 내용입니다.");
-        Comment comment = Comment.createComment(member, post, "첫 댓글입니다.");
+        Post post = Post.createPost("첫 제목", "본문 내용입니다.");
+        Comment comment = Comment.createComment(post, "첫 댓글입니다.");
 
         //when
         Long saveId = commentService.save(comment);
 
         //then
         assertEquals(comment, commentRepository.findOne(saveId));
-        assertEquals(member.getName(), commentRepository.findOne(saveId).getMember().getName());
         assertEquals(post.getContents(), commentRepository.findOne(saveId).getPost().getContents());
     }
 
     @Test
     public void 게시글별_조회() throws Exception {
         //given
-        Member member = new Member("newId", "newPwd", "사용자", "사용자1", 22);
-        memberService.join(member);
 
-        Post post1 = Post.createPost(member, "첫 제목", "본문 내용입니다.");
-        Post post2 = Post.createPost(member, "두번째 제목", "두번쨰 본문 내용입니다.");
+        Post post1 = Post.createPost("첫 제목", "본문 내용입니다.");
+        Post post2 = Post.createPost("두번째 제목", "두번쨰 본문 내용입니다.");
         postService.save(post1);
         postService.save(post2);
 
-        Comment comment1 = Comment.createComment(member, post1, "첫 댓글입니다.");
-        Comment comment2 = Comment.createComment(member, post1, "두번째 댓글입니다.");
-        Comment comment3 = Comment.createComment(member, post2, "세번째 댓글입니다.");
+        Comment comment1 = Comment.createComment(post1, "첫 댓글입니다.");
+        Comment comment2 = Comment.createComment(post1, "두번째 댓글입니다.");
+        Comment comment3 = Comment.createComment(post2, "세번째 댓글입니다.");
 
         //when
         commentService.save(comment1);
