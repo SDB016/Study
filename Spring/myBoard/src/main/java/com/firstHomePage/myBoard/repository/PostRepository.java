@@ -27,8 +27,10 @@ public class PostRepository {
         return em.find(Post.class, postId);
     }
 
-    public List<Post> findAll() {
+    public List<Post> findAll(int page, int size) {
         return em.createQuery("select p from Post p", Post.class)
+                .setFirstResult((page-1)*size)
+                .setMaxResults(size)
                 .getResultList();
     }
 
@@ -36,11 +38,4 @@ public class PostRepository {
         em.remove(post);
     }
 
-    public List<Post> findAllWithMember() {
-
-        return em.createQuery(
-                "select p from Post p" +
-                        " join fetch p.member m", Post.class)
-                .getResultList();
-    }
 }

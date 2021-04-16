@@ -8,6 +8,9 @@ import com.firstHomePage.myBoard.service.PostService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,7 +25,6 @@ public class PostController {
 
     private final PostService postService;
     private final PostRepository postRepository;
-    private final MemberService memberService;
 
     @PostMapping("/post")
     public CreatePostResponse savePost(@RequestBody @Valid CreatePostRequest request){
@@ -35,15 +37,17 @@ public class PostController {
     }
 
     @GetMapping("/post")
-    public ResultPost getAllPost(){
+    public ResultPost getAllPost(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size
+    ){
 
-        List<Post> posts = postRepository.findAllWithMember();
+        List<Post> posts = postService.findAll(page, size);
         List<PostDto> collect = posts.stream()
                 .map(p -> new PostDto(p.getId(), p.getCreatedBy(), p.getTitle(), p.getContents(), p.getViews(), p.getLastModifiedDate()))
                 .collect(toList());
         return new ResultPost<>(collect);
     }
-
     @GetMapping("/post/{id}")
     public ResultPost getPost(@PathVariable Long id){
 

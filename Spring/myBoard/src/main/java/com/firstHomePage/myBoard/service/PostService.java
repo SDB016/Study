@@ -26,8 +26,8 @@ public class PostService {
         return postRepository.findOne(postId);
     }
 
-    public List<Post> findAll() {
-        return postRepository.findAll();
+    public List<Post> findAll(int page, int size) {
+        return postRepository.findAll(page, size);
     }
 
     @Transactional

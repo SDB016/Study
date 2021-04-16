@@ -46,7 +46,7 @@ public class PostServiceTest {
         postService.save(post1);
         postService.save(post2);
 
-        List<Post> all = postRepository.findAll();
+        List<Post> all = postRepository.findAll(0,10);
         //then
         assertEquals(2, all.size());
     }

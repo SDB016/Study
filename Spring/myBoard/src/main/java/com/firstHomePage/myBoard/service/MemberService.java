@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService{
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;

@@ -42,7 +42,6 @@ public class CommentRepository {
 
         return em.createQuery(
                 "select c from Comment c" +
-                        " join fetch c.member m" +
                         " where c.post =: post", Comment.class)
                 .setParameter("post", post)
                 .setFirstResult(offset)
@@ -55,8 +54,8 @@ public class CommentRepository {
         return em.createQuery(
                 "select c from Comment c" +
                         " join fetch c.post p" +
-                        " where c.member =: member", Comment.class)
-                .setParameter("member", member)
+                        " where c.createdBy =: member", Comment.class)
+                .setParameter("member", member.getName())
                 .setFirstResult(offset)
                 .setMaxResults(limit)
                 .getResultList();
