@@ -54,7 +54,7 @@ public class PostService {
         return postRepository.findAllByKeyword(keyword);
     }
 
-    public List<Post> findAllByUserId(String userId) {
-        return postRepository.findAllByUserId(userId);
+    public List<Post> findAllByNickname(String nickname) {
+        return postRepository.findAllByNickname(nickname);
     }
 }

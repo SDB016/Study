@@ -45,11 +45,11 @@ public class PostRepository {
                 .getResultList();
     }
 
-    public List<Post> findAllByUserId(String userId) {
+    public List<Post> findAllByNickname(String nickname) {
         return em.createQuery(
                 "select p from Post p " +
-                        "where p.createdBy like :userId", Post.class)
-                .setParameter("userId", "%" + userId + "%")
+                        "where p.createdBy like :nickname", Post.class)
+                .setParameter("nickname", "%" + nickname + "%")
                 .getResultList();
     }
 }

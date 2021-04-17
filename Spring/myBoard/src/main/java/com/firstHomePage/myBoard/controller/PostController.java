@@ -63,11 +63,11 @@ public class PostController {
         return new ResultPost(collect);
     }
 
-    @GetMapping("/post/id")
-    public ResultPost getAllPostByUserId(
-            @RequestBody @Valid GetPostByIdRequest request
+    @GetMapping("/post/nickname")
+    public ResultPost getAllPostByUserNickname(
+            @RequestBody @Valid GetPostByNicknameRequest request
     ) {
-        List<Post> postList = postService.findAllByUserId(request.getUserId());
+        List<Post> postList = postService.findAllByNickname(request.getNickname());
         List<PostDto> collect = postList.stream()
                 .map(p -> new PostDto(p.getId(), p.getCreatedBy(), p.getTitle(), p.getContents(), p.getViews(), p.getLastModifiedDate()))
                 .collect(toList());
@@ -148,8 +148,8 @@ public class PostController {
 
     @Data
     @Getter
-    static class GetPostByIdRequest{
+    static class GetPostByNicknameRequest{
 
-        private String userId;
+        private String nickname;
     }
 }

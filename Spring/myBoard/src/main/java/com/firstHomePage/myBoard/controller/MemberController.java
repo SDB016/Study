@@ -34,7 +34,7 @@ public class MemberController {
         Optional<Member> optionalMember = Optional.ofNullable(memberService.login(loginRequest.getUserId(), loginRequest.getUserPwd()));
         if(optionalMember.isPresent()) {
             HttpSession session = httpRequest.getSession();
-            session.setAttribute(Session.SESSION_ID, optionalMember.get().getLoginId());
+            session.setAttribute(Session.SESSION_ID, optionalMember.get().getNickname());
 
             return new LoginMemberResponse("SUCCESS");
         }else{
