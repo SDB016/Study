@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -47,5 +48,13 @@ public class PostService {
     public void delete(Long id) {
         Post post = postRepository.findOne(id);
         postRepository.delete(post);
+    }
+
+    public List<Post> findAllByKeyword(String keyword) {
+        return postRepository.findAllByKeyword(keyword);
+    }
+
+    public List<Post> findAllByUserId(String userId) {
+        return postRepository.findAllByUserId(userId);
     }
 }

@@ -7,15 +7,18 @@ import com.firstHomePage.myBoard.service.MemberService;
 import com.firstHomePage.myBoard.service.PostService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -48,6 +51,29 @@ public class PostController {
                 .collect(toList());
         return new ResultPost<>(collect);
     }
+
+    @GetMapping("/post/keyword")
+    public ResultPost getAllPostByKeyword(
+            @RequestBody @Valid GetPostByKeywordRequest request
+    ) {
+        List<Post> postList = postService.findAllByKeyword(request.getKeyword());
+        List<PostDto> collect = postList.stream()
+                .map(p -> new PostDto(p.getId(), p.getCreatedBy(), p.getTitle(), p.getContents(), p.getViews(), p.getLastModifiedDate()))
+                .collect(toList());
+        return new ResultPost(collect);
+    }
+
+    @GetMapping("/post/id")
+    public ResultPost getAllPostByUserId(
+            @RequestBody @Valid GetPostByIdRequest request
+    ) {
+        List<Post> postList = postService.findAllByUserId(request.getUserId());
+        List<PostDto> collect = postList.stream()
+                .map(p -> new PostDto(p.getId(), p.getCreatedBy(), p.getTitle(), p.getContents(), p.getViews(), p.getLastModifiedDate()))
+                .collect(toList());
+        return new ResultPost(collect);
+    }
+
     @GetMapping("/post/{id}")
     public ResultPost getPost(@PathVariable Long id){
 
@@ -111,5 +137,19 @@ public class PostController {
 
         private String title;
         private String contents;
+    }
+
+    @Data
+    @Getter
+    static class GetPostByKeywordRequest{
+
+        private String keyword;
+    }
+
+    @Data
+    @Getter
+    static class GetPostByIdRequest{
+
+        private String userId;
     }
 }

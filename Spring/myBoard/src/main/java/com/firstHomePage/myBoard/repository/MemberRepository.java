@@ -26,26 +26,6 @@ public class MemberRepository {
                 .getResultList();
     }
 
-
-    public List<Member> findByName(String name){
-        return em.createQuery("select m from Member m where m.name =:name",
-                Member.class)
-                .setParameter("name", name)
-                .getResultList();
-    }
-
-
-    public List<Member> findByMemberInfo(String name, String nickname, int age){
-        return em.createQuery("select m from Member m " +
-                "where m.name =:name " +
-                "and m.nickname =:nickname " +
-                "and m.age =:age", Member.class)
-                .setParameter("name", name)
-                .setParameter("nickname", nickname)
-                .setParameter("age", age)
-                .getResultList();
-    }
-
     public void delete(Member member) {
         em.remove(member);
     }

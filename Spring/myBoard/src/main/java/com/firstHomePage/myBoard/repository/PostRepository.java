@@ -38,4 +38,18 @@ public class PostRepository {
         em.remove(post);
     }
 
+    public List<Post> findAllByKeyword(String keyword) {
+        return em.createQuery(
+                "select p from Post p where p.title like :keyword", Post.class)
+                .setParameter("keyword", "%" + keyword + "%")
+                .getResultList();
+    }
+
+    public List<Post> findAllByUserId(String userId) {
+        return em.createQuery(
+                "select p from Post p " +
+                        "where p.createdBy like :userId", Post.class)
+                .setParameter("userId", "%" + userId + "%")
+                .getResultList();
+    }
 }
