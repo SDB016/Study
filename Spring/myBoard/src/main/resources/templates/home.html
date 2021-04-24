@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div class="jumbotron">
+        <h1>MY Board</h1>
+        <p>
+            <a class="btn btn-lg btn-dark" href="/members/new">회원 가입</a>
+        </p>
+        <p>
+            <a class="btn btn-lg btn-warning" href="/posts">게시판</a>
+        </p>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
