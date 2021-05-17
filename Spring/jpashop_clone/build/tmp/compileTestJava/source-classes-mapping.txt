@@ -1,0 +1,6 @@
+jpabook/jpashop_clone/JpashopCloneApplicationTests.java
+ jpabook.jpashop_clone.JpashopCloneApplicationTests
+jpabook/jpashop_clone/service/MemberServiceTest.java
+ jpabook.jpashop_clone.service.MemberServiceTest
+jpabook/jpashop_clone/service/ItemServiceTest.java
+ jpabook.jpashop_clone.service.ItemServiceTest

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="jpabook.jpashop_clone.service.ItemServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-27T08:47:39" hostname="DESKTOP-38DQ87N" time="0.161">
+  <properties/>
+  <testcase name="아이템_재고_삭제" classname="jpabook.jpashop_clone.service.ItemServiceTest" time="0.161"/>
+  <system-out><![CDATA[17:47:34.865 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [jpabook.jpashop_clone.service.ItemServiceTest]
+17:47:34.865 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [jpabook.jpashop_clone.service.ItemServiceTest]
+17:47:34.866 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [jpabook.jpashop_clone.service.ItemServiceTest]
+17:47:34.866 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [jpabook.jpashop_clone.service.ItemServiceTest]
+17:47:34.872 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@14c0a32e testClass = ItemServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@3223483c testClass = ItemServiceTest, locations = '{}', classes = '{class jpabook.jpashop_clone.JpashopCloneApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@69f43e3b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@1f9bf29c, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@41e2eee5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@458b4850, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@42c1c8b1, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@c297ee5], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+17:47:34.874 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [jpabook.jpashop_clone.service.ItemServiceTest]
+17:47:34.874 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [jpabook.jpashop_clone.service.ItemServiceTest]
+17:47:34.899 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.4.4)
+
+2021-03-27 17:47:35.224  INFO 15528 --- [    Test worker] j.jpashop_clone.service.ItemServiceTest  : Starting ItemServiceTest using Java 11.0.10 on DESKTOP-38DQ87N with PID 15528 (started by dongb in D:\Code\Study\Spring\jpashop_clone)
+2021-03-27 17:47:35.226  INFO 15528 --- [    Test worker] j.jpashop_clone.service.ItemServiceTest  : No active profile set, falling back to default profiles: default
+2021-03-27 17:47:35.930  INFO 15528 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-27 17:47:35.950  INFO 15528 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 0 JPA repository interfaces.
+2021-03-27 17:47:36.547  INFO 15528 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-27 17:47:36.744  INFO 15528 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-27 17:47:36.849  INFO 15528 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-27 17:47:36.922  INFO 15528 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.29.Final
+2021-03-27 17:47:37.093  INFO 15528 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-03-27 17:47:37.252  INFO 15528 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-03-27 17:47:38.073 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : drop table if exists categoty CASCADE 
+2021-03-27 17:47:38.075  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858075 | took 0ms | statement | connection 2| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+drop table if exists categoty CASCADE 
+drop table if exists categoty CASCADE ;
+2021-03-27 17:47:38.075 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : drop table if exists delivery CASCADE 
+2021-03-27 17:47:38.076  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858076 | took 0ms | statement | connection 2| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+drop table if exists delivery CASCADE 
+drop table if exists delivery CASCADE ;
+2021-03-27 17:47:38.076 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : drop table if exists item CASCADE 
+2021-03-27 17:47:38.076  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858076 | took 0ms | statement | connection 2| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+drop table if exists item CASCADE 
+drop table if exists item CASCADE ;
+2021-03-27 17:47:38.076 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : drop table if exists item_category CASCADE 
+2021-03-27 17:47:38.076  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858076 | took 0ms | statement | connection 2| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+drop table if exists item_category CASCADE 
+drop table if exists item_category CASCADE ;
+2021-03-27 17:47:38.076 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : drop table if exists member CASCADE 
+2021-03-27 17:47:38.076  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858076 | took 0ms | statement | connection 2| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+drop table if exists member CASCADE 
+drop table if exists member CASCADE ;
+2021-03-27 17:47:38.076 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : drop table if exists order_item CASCADE 
+2021-03-27 17:47:38.077  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858077 | took 0ms | statement | connection 2| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+drop table if exists order_item CASCADE 
+drop table if exists order_item CASCADE ;
+2021-03-27 17:47:38.077 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : drop table if exists orders CASCADE 
+2021-03-27 17:47:38.077  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858077 | took 0ms | statement | connection 2| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+drop table if exists orders CASCADE 
+drop table if exists orders CASCADE ;
+2021-03-27 17:47:38.077 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : drop sequence if exists hibernate_sequence
+2021-03-27 17:47:38.077  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858077 | took 0ms | statement | connection 2| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+drop sequence if exists hibernate_sequence
+drop sequence if exists hibernate_sequence;
+2021-03-27 17:47:38.080 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : create sequence hibernate_sequence start with 1 increment by 1
+2021-03-27 17:47:38.081  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858081 | took 1ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+create sequence hibernate_sequence start with 1 increment by 1
+create sequence hibernate_sequence start with 1 increment by 1;
+2021-03-27 17:47:38.082 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : create table categoty (categoty_id bigint not null, name varchar(255), parent_id bigint, primary key (categoty_id))
+2021-03-27 17:47:38.086  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858086 | took 4ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+create table categoty (categoty_id bigint not null, name varchar(255), parent_id bigint, primary key (categoty_id))
+create table categoty (categoty_id bigint not null, name varchar(255), parent_id bigint, primary key (categoty_id));
+2021-03-27 17:47:38.087 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : create table delivery (delivery_id bigint not null, city varchar(255), street varchar(255), zipcode varchar(255), status varchar(255), primary key (delivery_id))
+2021-03-27 17:47:38.087  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858087 | took 0ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+create table delivery (delivery_id bigint not null, city varchar(255), street varchar(255), zipcode varchar(255), status varchar(255), primary key (delivery_id))
+create table delivery (delivery_id bigint not null, city varchar(255), street varchar(255), zipcode varchar(255), status varchar(255), primary key (delivery_id));
+2021-03-27 17:47:38.088 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : create table item (dtype varchar(31) not null, item_id bigint not null, name varchar(255), price integer not null, stock_quantity integer not null, artist varchar(255), etc varchar(255), author varchar(255), isbn varchar(255), actor varchar(255), director varchar(255), primary key (item_id))
+2021-03-27 17:47:38.088  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858088 | took 0ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+create table item (dtype varchar(31) not null, item_id bigint not null, name varchar(255), price integer not null, stock_quantity integer not null, artist varchar(255), etc varchar(255), author varchar(255), isbn varchar(255), actor varchar(255), director varchar(255), primary key (item_id))
+create table item (dtype varchar(31) not null, item_id bigint not null, name varchar(255), price integer not null, stock_quantity integer not null, artist varchar(255), etc varchar(255), author varchar(255), isbn varchar(255), actor varchar(255), director varchar(255), primary key (item_id));
+2021-03-27 17:47:38.088 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : create table item_category (item_category_id bigint not null, category_id bigint, item_id bigint, primary key (item_category_id))
+2021-03-27 17:47:38.089  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858089 | took 0ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+create table item_category (item_category_id bigint not null, category_id bigint, item_id bigint, primary key (item_category_id))
+create table item_category (item_category_id bigint not null, category_id bigint, item_id bigint, primary key (item_category_id));
+2021-03-27 17:47:38.090 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : create table member (member_id bigint not null, city varchar(255), street varchar(255), zipcode varchar(255), name varchar(255), primary key (member_id))
+2021-03-27 17:47:38.090  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858090 | took 0ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+create table member (member_id bigint not null, city varchar(255), street varchar(255), zipcode varchar(255), name varchar(255), primary key (member_id))
+create table member (member_id bigint not null, city varchar(255), street varchar(255), zipcode varchar(255), name varchar(255), primary key (member_id));
+2021-03-27 17:47:38.090 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : create table order_item (order_item_id bigint not null, count integer not null, order_price integer not null, item_id bigint, order_id bigint, primary key (order_item_id))
+2021-03-27 17:47:38.091  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858091 | took 0ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+create table order_item (order_item_id bigint not null, count integer not null, order_price integer not null, item_id bigint, order_id bigint, primary key (order_item_id))
+create table order_item (order_item_id bigint not null, count integer not null, order_price integer not null, item_id bigint, order_id bigint, primary key (order_item_id));
+2021-03-27 17:47:38.091 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : create table orders (order_id bigint not null, order_date timestamp, status varchar(255), delivery_id bigint, member_id bigint, primary key (order_id))
+2021-03-27 17:47:38.092  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858092 | took 0ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+create table orders (order_id bigint not null, order_date timestamp, status varchar(255), delivery_id bigint, member_id bigint, primary key (order_id))
+create table orders (order_id bigint not null, order_date timestamp, status varchar(255), delivery_id bigint, member_id bigint, primary key (order_id));
+2021-03-27 17:47:38.092 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : alter table categoty add constraint FKf4sxv8k1vn2yn4wobc0ml24ko foreign key (parent_id) references categoty
+2021-03-27 17:47:38.099  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858099 | took 6ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+alter table categoty add constraint FKf4sxv8k1vn2yn4wobc0ml24ko foreign key (parent_id) references categoty
+alter table categoty add constraint FKf4sxv8k1vn2yn4wobc0ml24ko foreign key (parent_id) references categoty;
+2021-03-27 17:47:38.099 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : alter table item_category add constraint FK2wvdwsthbc14agjhuj5007ng0 foreign key (category_id) references categoty
+2021-03-27 17:47:38.100  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858100 | took 1ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+alter table item_category add constraint FK2wvdwsthbc14agjhuj5007ng0 foreign key (category_id) references categoty
+alter table item_category add constraint FK2wvdwsthbc14agjhuj5007ng0 foreign key (category_id) references categoty;
+2021-03-27 17:47:38.101 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : alter table item_category add constraint FKjlvge1dms1hf66yi8dkard983 foreign key (item_id) references item
+2021-03-27 17:47:38.102  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858102 | took 0ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+alter table item_category add constraint FKjlvge1dms1hf66yi8dkard983 foreign key (item_id) references item
+alter table item_category add constraint FKjlvge1dms1hf66yi8dkard983 foreign key (item_id) references item;
+2021-03-27 17:47:38.102 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : alter table order_item add constraint FKija6hjjiit8dprnmvtvgdp6ru foreign key (item_id) references item
+2021-03-27 17:47:38.103  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858103 | took 0ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+alter table order_item add constraint FKija6hjjiit8dprnmvtvgdp6ru foreign key (item_id) references item
+alter table order_item add constraint FKija6hjjiit8dprnmvtvgdp6ru foreign key (item_id) references item;
+2021-03-27 17:47:38.103 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : alter table order_item add constraint FKt4dc2r9nbvbujrljv3e23iibt foreign key (order_id) references orders
+2021-03-27 17:47:38.104  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858104 | took 0ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+alter table order_item add constraint FKt4dc2r9nbvbujrljv3e23iibt foreign key (order_id) references orders
+alter table order_item add constraint FKt4dc2r9nbvbujrljv3e23iibt foreign key (order_id) references orders;
+2021-03-27 17:47:38.104 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : alter table orders add constraint FKtkrur7wg4d8ax0pwgo0vmy20c foreign key (delivery_id) references delivery
+2021-03-27 17:47:38.106  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858106 | took 1ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+alter table orders add constraint FKtkrur7wg4d8ax0pwgo0vmy20c foreign key (delivery_id) references delivery
+alter table orders add constraint FKtkrur7wg4d8ax0pwgo0vmy20c foreign key (delivery_id) references delivery;
+2021-03-27 17:47:38.106 DEBUG 15528 --- [    Test worker] org.hibernate.SQL                        : alter table orders add constraint FKpktxwhj3x9m4gth5ff6bkqgeb foreign key (member_id) references member
+2021-03-27 17:47:38.107  INFO 15528 --- [    Test worker] p6spy                                    : #1616834858107 | took 1ms | statement | connection 3| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+alter table orders add constraint FKpktxwhj3x9m4gth5ff6bkqgeb foreign key (member_id) references member
+alter table orders add constraint FKpktxwhj3x9m4gth5ff6bkqgeb foreign key (member_id) references member;
+2021-03-27 17:47:38.110  INFO 15528 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-27 17:47:38.120  INFO 15528 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-27 17:47:38.433  WARN 15528 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-27 17:47:38.672  INFO 15528 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-27 17:47:38.782  INFO 15528 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2021-03-27 17:47:39.151  INFO 15528 --- [    Test worker] j.jpashop_clone.service.ItemServiceTest  : Started ItemServiceTest in 4.244 seconds (JVM running for 5.441)
+2021-03-27 17:47:39.243  INFO 15528 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@14c0a32e testClass = ItemServiceTest, testInstance = jpabook.jpashop_clone.service.ItemServiceTest@534368a5, testMethod = 아이템_재고_삭제@ItemServiceTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@3223483c testClass = ItemServiceTest, locations = '{}', classes = '{class jpabook.jpashop_clone.JpashopCloneApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@69f43e3b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@1f9bf29c, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@41e2eee5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@458b4850, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@42c1c8b1, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@c297ee5], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -> true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@643e44fe]; rollback [true]
+2021-03-27 17:47:39.334  INFO 15528 --- [    Test worker] p6spy                                    : #1616834859334 | took 0ms | rollback | connection 5| url jdbc:h2:mem:f972da8e-af83-497d-9872-ee4350ee88aa
+
+;
+2021-03-27 17:47:39.336  INFO 15528 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@14c0a32e testClass = ItemServiceTest, testInstance = jpabook.jpashop_clone.service.ItemServiceTest@534368a5, testMethod = 아이템_재고_삭제@ItemServiceTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@3223483c testClass = ItemServiceTest, locations = '{}', classes = '{class jpabook.jpashop_clone.JpashopCloneApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@69f43e3b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@1f9bf29c, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@41e2eee5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@458b4850, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@42c1c8b1, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@c297ee5], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -> true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
